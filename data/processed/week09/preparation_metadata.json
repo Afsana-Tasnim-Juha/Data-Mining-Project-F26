@@ -1,0 +1,51 @@
+{
+  "source_sample": "data/raw/ev_sample_50k.csv",
+  "source_sha256": "3f9766e76f22b83d49af39ab8072558c5786d08c55e601ae11b0917f4b164d2c",
+  "sample_seed": 42,
+  "sample_rows": 50000,
+  "washington_rows": 49873,
+  "minimum_sampled_vehicles_per_zip": 30,
+  "clustering_features": [
+    "Log_EV_Count",
+    "BEV_Percentage",
+    "Avg_Model_Year"
+  ],
+  "count_transformation": "natural log of (1 + EV_Count)",
+  "scaling": {
+    "method": "StandardScaler fitted on retained ZIP codes",
+    "feature_order": [
+      "Log_EV_Count",
+      "BEV_Percentage",
+      "Avg_Model_Year"
+    ],
+    "mean": [
+      4.9413765981839095,
+      78.83281110444462,
+      2022.240901285528
+    ],
+    "scale": [
+      0.8048681850620019,
+      6.845587459491599,
+      0.5378307102216913
+    ]
+  },
+  "association_features": [
+    "Make",
+    "EV_Type",
+    "Year_Group"
+  ],
+  "year_group_rule": "floor(Model Year / 5) * 5 through start + 4",
+  "association_row_alignment": "Encoded rows match association_transactions.csv in order",
+  "anomaly_features": [
+    "Model Year",
+    "Electric Range Usable"
+  ],
+  "anomaly_grouping": "Separate BEV and PHEV inputs",
+  "range_policy": "Only positive recorded ranges are usable",
+  "software": {
+    "python": "3.14.5",
+    "pandas": "3.0.6",
+    "numpy": "2.4.6",
+    "scikit_learn": "1.9.0"
+  }
+}
